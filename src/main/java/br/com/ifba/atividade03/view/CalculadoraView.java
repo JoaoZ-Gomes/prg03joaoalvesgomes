@@ -71,11 +71,17 @@ public class CalculadoraView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCalcularActionPerformed
-       int anoNascimento = (Integer) spnData.getValue();
-       int anoAtual = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
-       int idade = anoAtual - anoNascimento;
-       lblResultado.setText(String.valueOf(idade));
-     
+   // Pega o ano que a pessoa selecionou no calendário
+    int anoNascimento = (Integer) spnData.getValue();
+    
+    // Pega o ano atual do computador
+    int anoAtual = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
+    
+    // Calcula a idade: ano atual - ano de nascimento
+    int idade = anoAtual - anoNascimento;
+    
+    // Mostra a idade na tela (no label lblResultado)
+    lblResultado.setText(String.valueOf(idade));
     }//GEN-LAST:event_BtnCalcularActionPerformed
 
     /**
