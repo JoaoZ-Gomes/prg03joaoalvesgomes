@@ -65,7 +65,7 @@ public class CalculadoraView extends javax.swing.JFrame {
         getContentPane().add(lblImagenIdade, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 70, 50));
 
         lblPessoas.setIcon(new javax.swing.ImageIcon("C:\\Users\\jotin\\OneDrive\\Documentos\\NetBeansProjects\\prg03joaoalvesgomes\\src\\main\\java\\br\\com\\ifba\\atividade03\\images\\pessoas (1).png")); // NOI18N
-        getContentPane().add(lblPessoas, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 150, 130, 90));
+        getContentPane().add(lblPessoas, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, 130, 90));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
