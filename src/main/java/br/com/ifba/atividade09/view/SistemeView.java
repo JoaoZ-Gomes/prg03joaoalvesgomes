@@ -89,7 +89,7 @@ public class SistemeView extends javax.swing.JFrame {
         getContentPane().add(lblSelecione, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\jotin\\OneDrive\\Documentos\\NetBeansProjects\\prg03joaoalvesgomes\\src\\main\\java\\br\\com\\ifba\\atividade09\\view\\imagens\\Fundo.png")); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-130, -130, 550, 440));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-230, -190, 630, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -103,42 +103,57 @@ public class SistemeView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtdigitarValorActionPerformed
 
     private void btnpagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpagarActionPerformed
-   String tipoPagamento = (String) cmbTipoPagamento.getSelectedItem();
-    String nome = txtdigitarNome.getText();
-    String data = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-    double valorCompra;
+  // Obtém o tipo de pagamento selecionado no comboBox
+String tipoPagamento = (String) cmbTipoPagamento.getSelectedItem();
 
-    try {
-        valorCompra = Double.parseDouble(txtdigitarValor.getText());
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Digite um valor válido.", "Erro", JOptionPane.ERROR_MESSAGE);
+// Pega o nome digitado pelo usuário
+String nome = txtdigitarNome.getText();
+
+// Gera a data atual formatada como "dia/mês/ano"
+String data = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+double valorCompra;
+
+try {
+    // Tenta converter o texto digitado para um número (double)
+    valorCompra = Double.parseDouble(txtdigitarValor.getText());
+} catch (NumberFormatException e) {
+    // Se o valor digitado não for numérico, mostra uma mensagem de erro
+    JOptionPane.showMessageDialog(null, "Digite um valor válido.", "Erro", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+// Validação: o valor da compra não pode ser negativo
+if (valorCompra < 0) {
+    JOptionPane.showMessageDialog(null, "Valor não pode ser menor que 0,00 R$", "ERROR", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+InterfacePagamento pagamento;
+
+// Aqui, decidimos qual tipo de pagamento será usado, de acordo com a escolha do usuário
+switch (tipoPagamento) {
+    case "Pagamento Cartão":
+        pagamento = new PagamentoCartao(); // Cria objeto para pagamento com cartão
+        break;
+    case "Pagamento Dinheiro":
+        pagamento = new PagamentoDinheiro(); // Cria objeto para pagamento em dinheiro
+        break;
+    case "Pagamento Pix":
+        pagamento = new PagamentoPix(); // Cria objeto para pagamento via Pix
+        break;
+    default:
+        // Se o tipo de pagamento não for reconhecido, mostra erro e para a execução
+        JOptionPane.showMessageDialog(null, "Tipo de pagamento inválido.");
         return;
-    }
+}
 
-    if (valorCompra < 0) {
-        JOptionPane.showMessageDialog(null, "Valor não pode ser menor que 0,00 R$", "ERROR", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+// Calcula o valor final da compra com base nas regras do tipo de pagamento escolhido
+double valorFinal = pagamento.calcularTotal(valorCompra);
 
-    InterfacePagamento pagamento;
+// Por fim, imprime um recibo com os dados da compra
+pagamento.imprimirRecibo(nome, data, valorCompra, valorFinal);
 
-    switch (tipoPagamento) {
-        case "Pagamento Cartão":
-            pagamento = new PagamentoCartao();
-            break;
-        case "Pagamento Dinheiro":
-            pagamento = new PagamentoDinheiro();
-            break;
-        case "Pagamento Pix":
-            pagamento = new PagamentoPix(); // Certifique-se de criar essa classe
-            break;
-        default:
-            JOptionPane.showMessageDialog(null, "Tipo de pagamento inválido.");
-            return;
-    }
-
-    double valorFinal = pagamento.calcularTotal(valorCompra);
-    pagamento.imprimirRecibo(nome, data, valorCompra, valorFinal);
        
     }//GEN-LAST:event_btnpagarActionPerformed
 
