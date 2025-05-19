@@ -154,6 +154,7 @@ public class Main {
             }
         }
         System.out.println("Sessão não encontrada.");
+        System.out.println("");
     
     }
 
