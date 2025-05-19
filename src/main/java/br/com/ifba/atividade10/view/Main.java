@@ -149,11 +149,12 @@ public class Main {
                 LogAuditoria log = new LogAuditoria((long) (logs.size() + 1), s.getUsuario(), "Logout", LocalDateTime.now(), "127.0.0.1");
                 logs.add(log);
 
-                System.out.println("Sessão encerrada com sucesso.");
+                System.out.println("Sessão encerrada com sucesso!.");
                 return;
             }
         }
         System.out.println("Sessão não encontrada.");
+    
     }
 
     // Lista todos os perfis cadastrados
@@ -186,7 +187,7 @@ public class Main {
     // Lista todos os logs de auditoria (login/logout)
     private static void listarLogs() {
         if (logs.isEmpty()) {
-            System.out.println("Nenhum log registrado.");
+            System.out.println("Nenhum log registrado!!.  ");
         } else {
             logs.forEach(System.out::println);
         }
